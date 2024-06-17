@@ -3,6 +3,7 @@ package com.itheima.config;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -29,5 +30,11 @@ public class MyBatisConfig {
         Interceptor[] plugins = {pageInterceptor};
         sqlSessionFactoryBean.setPlugins(plugins);
         return sqlSessionFactoryBean;
+    }
+
+    public MapperScannerConfigurer getMapperScannerConfigurer() {
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setBasePackage("com.itheima.mapper");
+        return mapperScannerConfigurer;
     }
 }
