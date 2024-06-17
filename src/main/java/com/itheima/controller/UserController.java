@@ -29,4 +29,9 @@ public class UserController {
             return "forward:/admin/login.jsp";
         }
     }
+
+    @RequestMapping("/toMainPage")
+    public String toMainPage() {
+        return "main";
+    }
 }
