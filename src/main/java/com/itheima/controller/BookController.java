@@ -34,7 +34,7 @@ public class BookController {
 
     @ResponseBody
     @RequestMapping("/findById")
-    public Result<Book> findById(int id) {
+    public Result<Book> findById(String id) {
         try {
             Book book = bookService.findById(id);
             if (book == null) {
@@ -126,5 +126,21 @@ public class BookController {
         modelAndView.addObject("pageNum", pageNum);
         modelAndView.addObject("gourl", request.getRequestURI());
         return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping("/returnBook")
+    public Result returnBook(String id, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        try {
+            boolean flag = bookService.returnBook(id, user);
+            if (!flag) {
+                return new Result(false, "还书失败");
+            }
+            return new Result(true, "还书确认中，请先到行政中心还书！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "还书失败");
+        }
     }
 }

@@ -7,7 +7,7 @@ import com.itheima.entity.PageResult;
 public interface BookService {
     PageResult selectNewBooks(Integer pageNum, Integer pageSize);
 
-    Book findById(int id);
+    Book findById(String id);
 
     Integer borrowBook(Book book);
 
@@ -18,4 +18,6 @@ public interface BookService {
     Integer editBook(Book book);
 
     PageResult selectBorrowed(Book book, User user, Integer pageNum, Integer pageSize);
+
+    boolean returnBook(String id, User user);
 }

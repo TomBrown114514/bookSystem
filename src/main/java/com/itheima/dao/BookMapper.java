@@ -27,7 +27,7 @@ public interface BookMapper {
 
     @Select("select * from book where book_id=#{id}")
     @ResultMap("bookMap")
-    Book findById(int id);
+    Book findById(String id);
 
     Integer editBook(Book book);
 

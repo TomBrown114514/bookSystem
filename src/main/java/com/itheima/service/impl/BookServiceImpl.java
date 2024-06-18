@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findById(int id) {
+    public Book findById(String id) {
         return bookMapper.findById(id);
     }
 
@@ -74,5 +74,16 @@ public class BookServiceImpl implements BookService {
             page = bookMapper.selectMyBorrowed(book);
         }
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public boolean returnBook(String id, User user) {
+        Book book = this.findById(id);
+        boolean rb = book.getBorrower().equals(user.getName());
+        if (rb) {
+            book.setStatus("2");
+            bookMapper.editBook(book);
+        }
+        return rb;
     }
 }
