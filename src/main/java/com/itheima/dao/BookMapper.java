@@ -30,4 +30,18 @@ public interface BookMapper {
     Book findById(int id);
 
     Integer editBook(Book book);
+
+    @Select({"<script>" +
+            "SELECT * FROM book " +
+            "where book_status !='3'" +
+            "<if test=\"name != null\"> AND  book_name  like  CONCAT('%',#{name},'%')</if>" +
+            "<if test=\"press != null\"> AND book_press like  CONCAT('%', #{press},'%') </if>" +
+            "<if test=\"author != null\"> AND book_author like  CONCAT('%', #{author},'%')</if>" +
+            "order by book_borrowtime" +
+            "</script>"
+    })
+    @ResultMap("bookMap")
+        //分页查询图书
+    Page<Book> searchBooks(Book book);
+    //新增图书
 }

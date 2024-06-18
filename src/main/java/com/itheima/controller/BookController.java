@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -58,5 +59,23 @@ public class BookController {
             e.printStackTrace();
             return new Result(false, "借阅图书失败");
         }
+    }
+
+    @RequestMapping("/search")
+    public ModelAndView search(Book book, Integer pageNum, Integer pageSize, HttpServletRequest request) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        PageResult pageResult = bookService.search(book, pageNum, pageSize);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("books");
+        modelAndView.addObject("pageResult", pageResult);
+        modelAndView.addObject("book", book);
+        modelAndView.addObject("pageNum", pageNum);
+        modelAndView.addObject("gourl", request.getRequestURI());
+        return modelAndView;
     }
 }

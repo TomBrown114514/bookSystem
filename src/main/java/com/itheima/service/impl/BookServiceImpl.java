@@ -42,4 +42,11 @@ public class BookServiceImpl implements BookService {
         book.setUploadTime(b.getUploadTime());
         return bookMapper.editBook(book);
     }
+
+    @Override
+    public PageResult search(Book book, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        Page<Book> page = bookMapper.searchBooks(book);
+        return new PageResult(page.getTotal(), page.getResult());
+    }
 }
