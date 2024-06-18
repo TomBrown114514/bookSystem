@@ -46,6 +46,8 @@ public class BookController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping("/borrowBook")
     public Result borrowBook(Book book, HttpSession session) {
         String pname = ((User) session.getAttribute("USER_SESSION")).getName();
         book.setBorrower(pname);
