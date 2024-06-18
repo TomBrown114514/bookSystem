@@ -16,7 +16,7 @@ public class Book implements Serializable {
     private String borrowTime;
     private String returnTime;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

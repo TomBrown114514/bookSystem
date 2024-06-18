@@ -35,7 +35,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Integer borrowBook(Book book) {
-        Book b = bookMapper.findById(book.getId());
+        Book b = bookMapper.findById(String.valueOf(book.getId()));
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         book.setBorrowTime(dateFormat.format(new Date()));
         book.setStatus("1");
