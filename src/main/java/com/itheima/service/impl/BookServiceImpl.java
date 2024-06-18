@@ -86,4 +86,14 @@ public class BookServiceImpl implements BookService {
         }
         return rb;
     }
+
+    @Override
+    public Integer returnConfirm(String id) {
+        Book book = this.findById(id);
+        book.setStatus("0");
+        book.setBorrower("");
+        book.setBorrowTime("");
+        book.setReturnTime("");
+        return bookMapper.editBook(book);
+    }
 }

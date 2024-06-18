@@ -143,4 +143,19 @@ public class BookController {
             return new Result(false, "还书失败");
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/returnConfirm")
+    public Result returnConfirm(String id) {
+        try {
+            Integer count = bookService.returnConfirm(id);
+            if (count != 1) {
+                return new Result(false, "确认失败");
+            }
+            return new Result(true, "确认成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "确认失败");
+        }
+    }
 }
