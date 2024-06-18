@@ -49,4 +49,16 @@ public class BookServiceImpl implements BookService {
         Page<Book> page = bookMapper.searchBooks(book);
         return new PageResult(page.getTotal(), page.getResult());
     }
+
+    @Override
+    public Integer addBook(Book book) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        book.setUploadTime(dateFormat.format(new Date()));
+        return bookMapper.addBook(book);
+    }
+
+    @Override
+    public Integer editBook(Book book) {
+        return bookMapper.editBook(book);
+    }
 }

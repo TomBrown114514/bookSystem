@@ -44,4 +44,5 @@ public interface BookMapper {
         //分页查询图书
     Page<Book> searchBooks(Book book);
     //新增图书
+    Integer addBook(Book book);
 }

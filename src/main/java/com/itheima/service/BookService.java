@@ -8,4 +8,6 @@ public interface BookService {
     Book findById(int id);
     Integer borrowBook(Book book);
     PageResult search(Book book, Integer pageNum, Integer pageSize);
+    Integer addBook(Book book);
+    Integer editBook(Book book);
 }
