@@ -75,7 +75,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("books");
         modelAndView.addObject("pageResult", pageResult);
-        modelAndView.addObject("book", book);
+        modelAndView.addObject("search", book);
         modelAndView.addObject("pageNum", pageNum);
         modelAndView.addObject("gourl", request.getRequestURI());
         return modelAndView;
