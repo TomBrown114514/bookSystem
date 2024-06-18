@@ -4,9 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.dao.BookMapper;
 import com.itheima.domain.Book;
+import com.itheima.domain.Record;
 import com.itheima.domain.User;
 import com.itheima.entity.PageResult;
 import com.itheima.service.BookService;
+import com.itheima.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ import java.util.Date;
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private RecordService recordService;
 
     @Override
     public PageResult selectNewBooks(Integer pageNum, Integer pageSize) {
@@ -90,10 +94,26 @@ public class BookServiceImpl implements BookService {
     @Override
     public Integer returnConfirm(String id) {
         Book book = this.findById(id);
+        Record record = this.setRecord(book);
         book.setStatus("0");
         book.setBorrower("");
         book.setBorrowTime("");
         book.setReturnTime("");
-        return bookMapper.editBook(book);
+        Integer count = bookMapper.editBook(book);
+        if (count == 1) {
+            return recordService.addRecord(record);
+        }
+        return 0;
+    }
+
+    private Record setRecord(Book book) {
+        Record record = new Record();
+        record.setBookname(book.getName());
+        record.setBookisbn(book.getIsbn());
+        record.setBorrower(book.getBorrower());
+        record.setBorrowTime(book.getBorrowTime());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        record.setRemandTime(dateFormat.format(new Date()));
+        return record;
     }
 }
