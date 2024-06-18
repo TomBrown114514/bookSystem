@@ -108,4 +108,23 @@ public class BookController {
             return new Result(false, "修改图书失败");
         }
     }
+
+    @RequestMapping("/selectBorrowed")
+    public ModelAndView selectBorrowed(Book book, Integer pageNum, Integer pageSize, HttpServletRequest request) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        PageResult pageResult = bookService.selectBorrowed(book, user, pageNum, pageSize);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("books_borrowed");
+        modelAndView.addObject("pageResult", pageResult);
+        modelAndView.addObject("search", book);
+        modelAndView.addObject("pageNum", pageNum);
+        modelAndView.addObject("gourl", request.getRequestURI());
+        return modelAndView;
+    }
 }

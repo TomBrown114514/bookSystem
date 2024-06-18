@@ -43,6 +43,38 @@ public interface BookMapper {
     @ResultMap("bookMap")
         //分页查询图书
     Page<Book> searchBooks(Book book);
+
     //新增图书
     Integer addBook(Book book);
+
+    @Select(
+            {"<script>" +
+                    "SELECT * FROM book " +
+                    "where book_borrower=#{borrower}" +
+                    "AND book_status ='1'" +
+                    "<if test=\"name != null\"> AND  book_name  like  CONCAT('%',#{name},'%')</if>" +
+                    "<if test=\"press != null\"> AND book_press like  CONCAT('%', #{press},'%') </if>" +
+                    "<if test=\"author != null\"> AND book_author like  CONCAT('%', #{author},'%')</if>" +
+                    "or book_status ='2'" +
+                    "<if test=\"name != null\"> AND  book_name  like  CONCAT('%',#{name},'%')</if>" +
+                    "<if test=\"press != null\"> AND book_press like  CONCAT('%', #{press},'%') </if>" +
+                    "<if test=\"author != null\"> AND book_author like  CONCAT('%', #{author},'%')</if>" +
+                    "order by book_borrowtime" +
+                    "</script>"})
+    @ResultMap("bookMap")
+//查询借阅但未归还的图书和待归还确认的图书
+    Page<Book> selectBorrowed(Book book);
+
+    @Select({"<script>" +
+            "SELECT * FROM book " +
+            "where book_borrower=#{borrower}" +
+            "AND book_status in('1','2')" +
+            "<if test=\"name != null\"> AND  book_name  like  CONCAT('%',#{name},'%')</if>" +
+            "<if test=\"press != null\"> AND book_press like  CONCAT('%', #{press},'%') </if>" +
+            "<if test=\"author != null\"> AND book_author like  CONCAT('%', #{author},'%')</if>" +
+            "order by book_borrowtime" +
+            "</script>"})
+    @ResultMap("bookMap")
+//查询借阅但未归还的图书
+    Page<Book> selectMyBorrowed(Book book);
 }

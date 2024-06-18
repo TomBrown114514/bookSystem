@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.dao.BookMapper;
 import com.itheima.domain.Book;
+import com.itheima.domain.User;
 import com.itheima.entity.PageResult;
 import com.itheima.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public Integer editBook(Book book) {
         return bookMapper.editBook(book);
+    }
+
+    @Override
+    public PageResult selectBorrowed(Book book, User user, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        Page<Book> page;
+        book.setBorrower(user.getName());
+        if ("ADMIN".equals(user.getRole())) {
+            page = bookMapper.selectBorrowed(book);
+        } else {
+            page = bookMapper.selectMyBorrowed(book);
+        }
+        return new PageResult(page.getTotal(), page.getResult());
     }
 }
