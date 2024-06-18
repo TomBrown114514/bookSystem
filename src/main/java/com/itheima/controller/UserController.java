@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -22,6 +23,19 @@ public class UserController {
                 return "redirect:/admin/main.jsp";
             }
             request.setAttribute("msg", "用户名或密码错误");
+            return "forward:/admin/login.jsp";
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+            request.setAttribute("msg", "系统错误");
+            return "forward:/admin/login.jsp";
+        }
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
             return "forward:/admin/login.jsp";
         } catch (Exception e) {
             e.printStackTrace(System.err);
