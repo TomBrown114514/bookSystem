@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {
@@ -21,5 +25,21 @@ public class BookServiceImpl implements BookService {
         PageHelper.startPage(pageNum, pageSize);
         Page<Book> page = bookMapper.selectNewBooks();
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public Book findById(int id) {
+        return bookMapper.findById(id);
+    }
+
+    @Override
+    public Integer borrowBook(Book book) {
+        Book b = bookMapper.findById(book.getId());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        book.setBorrowTime(dateFormat.format(new Date()));
+        book.setStatus("1");
+        book.setPrice(b.getPrice());
+        book.setUploadTime(b.getUploadTime());
+        return bookMapper.editBook(book);
     }
 }

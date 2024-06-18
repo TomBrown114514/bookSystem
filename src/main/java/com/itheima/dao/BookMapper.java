@@ -3,6 +3,7 @@ package com.itheima.dao;
 import com.github.pagehelper.Page;
 import com.itheima.domain.Book;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
@@ -23,4 +24,10 @@ public interface BookMapper {
             @Result(column = "book_returntime", property = "returntime")
     })
     Page<Book> selectNewBooks();
+
+    @Select("select * from book where book_id=#{id}")
+    @ResultMap("bookMap")
+    Book findById(int id);
+
+    Integer editBook(Book book);
 }
