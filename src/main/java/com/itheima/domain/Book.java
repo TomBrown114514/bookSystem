@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private Integer id;
     private String name;
+    private Integer bookNumber;
     private String isbn;
     private String press;
     private String author;
@@ -110,5 +111,13 @@ public class Book implements Serializable {
 
     public void setReturnTime(String returnTime) {
         this.returnTime = returnTime;
+    }
+
+    public Integer getBookNumber() {
+        return bookNumber;
+    }
+
+    public void setBookNumber(Integer bookNumber) {
+        this.bookNumber = bookNumber;
     }
 }
