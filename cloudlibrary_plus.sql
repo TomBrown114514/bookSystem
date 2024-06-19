@@ -98,3 +98,6 @@ INSERT INTO `user` VALUES (1, '黑马程序员', '12345', 'itheima@itcast.cn', '
 INSERT INTO `user` VALUES (2, '张三', '12345', 'zhangsan@itcast.cn', '2021-01-07', 'USER', NULL, '0');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+alter table book
+    add book_number int default 1000 null comment '书籍数量' after book_name;
