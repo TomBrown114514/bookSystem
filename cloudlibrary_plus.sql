@@ -137,5 +137,4 @@ VALUES (2, '张三', '12345', 'zhangsan@itcast.cn', '2021-01-07', 'USER', NULL, 
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-alter table book
-    drop book_number;
+
