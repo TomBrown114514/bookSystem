@@ -112,8 +112,8 @@ public class BookServiceImpl implements BookService {
     /**
      * 查询借阅记录
      *
-     * @param book   图书对象
-     * @param user   用户对象
+     * @param book     图书对象
+     * @param user     用户对象
      * @param pageNum  当前页码
      * @param pageSize 每页数量
      * @return 分页结果
@@ -134,8 +134,8 @@ public class BookServiceImpl implements BookService {
     /**
      * 还书操作
      *
-     * @param id     图书ID
-     * @param user   用户对象
+     * @param id   图书ID
+     * @param user 用户对象
      * @return 是否成功还书
      */
     @Override

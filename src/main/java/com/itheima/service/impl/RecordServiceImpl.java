@@ -57,5 +57,6 @@ public class RecordServiceImpl implements RecordService {
         // 构建分页查询结果
         return new PageResult(page.getTotal(), page.getResult());
     }
+
 }
 
