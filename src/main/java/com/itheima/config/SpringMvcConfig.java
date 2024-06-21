@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
@@ -46,26 +43,8 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
-    /**
-     * 配置JSP视图解析器。
-     *
-     * @param registry 视图解析器的注册表。
-     */
-    @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("/admin/", ".jsp");
-    }
-
-    /**
-     * 添加拦截器到拦截器注册表中，用于拦截和处理特定的请求。
-     *
-     * @param registry 拦截器注册表，用于管理拦截器的配置。
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(resourcesInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/js/**", "/img/**");
+        registry.jsp("/admin/", "jsp");
     }
 }
 
