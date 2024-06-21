@@ -2,61 +2,52 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.itheima.mapper.RecordMapper;
 import com.itheima.domain.Record;
 import com.itheima.domain.User;
-import com.itheima.entity.PageResult;
+import com.itheima.mapper.RecordMapper;
 import com.itheima.service.RecordService;
+import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 记录服务实现类
- */
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 @Service
+@Transactional
 public class RecordServiceImpl implements RecordService {
-    /**
-     * 自动注入记录DAO接口
-     */
     @Autowired
     private RecordMapper recordMapper;
 
-    /**
-     * 添加记录
-     *
-     * @param record 需要添加的记录对象
-     * @return 添加成功的记录条数
-     */
-    @Override
-    public Integer addRecord(Record record) {
-        return recordMapper.addRecord(record);
-    }
-
-    /**
-     * 查询记录
-     *
-     * @param record   查询条件对象
-     * @param user     当前操作用户
-     * @param pageNum  当前页码
-     * @param pageSize 每页记录数
-     * @return 分页查询结果
-     */
-    @Override
-    public PageResult searchRecords(Record record, User user, Integer pageNum, Integer pageSize) {
-        // 初始化分页插件
-        PageHelper.startPage(pageNum, pageSize);
-
-        // 非管理员用户查询时，自动设置查询条件为当前用户
-        if (!"ADMIN".equals(user.getRole())) {
-            record.setBorrower(user.getName());
-        }
-
-        // 执行查询
-        Page<Record> page = recordMapper.searchRecords(record);
-
-        // 构建分页查询结果
-        return new PageResult(page.getTotal(), page.getResult());
-    }
-
+/**
+ * 新增借阅记录
+ * @param record 新增的借阅记录
+ */
+@Override
+public Integer addRecord(Record record) {
+    return recordMapper.addRecord(record);
 }
 
+/**
+ * 查询借阅记录
+ * @param record 借阅记录的查询条件
+ * @param user 当前的登录用户
+ * @param pageNum 当前页码
+ * @param pageSize 每页显示数量
+ */
+@Override
+public PageResult searchRecords(Record record, User user, Integer pageNum, Integer pageSize) {
+    // 设置分页查询的参数，开始分页
+    PageHelper.startPage(pageNum, pageSize);
+    //如果不是管理员，则查询条件中的借阅人设置为当前登录用户
+    if(!"ADMIN".equals(user.getRole())){
+        record.setBorrower(user.getName());
+    }
+    Page<Record> page= recordMapper.searchRecords(record);
+    return new PageResult(page.getTotal(),page.getResult());
+}
+
+}

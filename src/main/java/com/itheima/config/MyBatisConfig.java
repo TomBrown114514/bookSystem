@@ -10,53 +10,40 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * MyBatis的配置类，用于配置MyBatis的相关组件。
- */
 public class MyBatisConfig {
-
-    /**
-     * 配置PageInterceptor，用于实现分页功能。
-     *
-     * @return 返回配置好的PageInterceptor实例。
-     */
+    /**配置PageInterceptor分页插件*/
     @Bean
     public PageInterceptor getPageInterceptor() {
-        PageInterceptor pageInterceptor = new PageInterceptor();
+        PageInterceptor pageIntercptor = new PageInterceptor();
         Properties properties = new Properties();
         properties.setProperty("value", "true");
-        pageInterceptor.setProperties(properties);
-        return pageInterceptor;
+        pageIntercptor.setProperties(properties);
+        return pageIntercptor;
     }
-
-    /**
-     * 配置SqlSessionFactoryBean，用于创建SqlSessionFactory。
-     *
-     * @param dataSource      数据源，用于连接数据库。
-     * @param pageInterceptor 分页插件，用于实现分页功能。
-     * @return 返回配置好的SqlSessionFactoryBean实例。
+    /*
+    定义MyBatis的核心连接工厂bean，
+    等同于<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+     参数使用自动装配的形式加载dataSource，
+    为set注入提供数据源，dataSource来源于JdbcConfig中的配置
      */
     @Bean
-    public SqlSessionFactoryBean getSqlSessionFactoryBean(
-            @Autowired DataSource dataSource,
-            @Autowired PageInterceptor pageInterceptor
-    ) {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource);
-        Interceptor[] plugins = {pageInterceptor};
-        sqlSessionFactoryBean.setPlugins(plugins);
-        return sqlSessionFactoryBean;
+    public SqlSessionFactoryBean getSqlSessionFactoryBean(@Autowired DataSource dataSource,@Autowired PageInterceptor pageIntercptor){
+        SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
+        //等同于<property name="dataSource" ref="dataSource"/>
+        ssfb.setDataSource(dataSource);
+        Interceptor[] plugins={pageIntercptor};
+        ssfb.setPlugins(plugins);
+        return ssfb;
     }
-
-    /**
-     * 配置MapperScannerConfigurer，用于扫描Mapper接口。
-     *
-     * @return 返回配置好的MapperScannerConfigurer实例。
+    /*
+    定义MyBatis的映射扫描，
+    等同于<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
      */
-    public MapperScannerConfigurer getMapperScannerConfigurer() {
-        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.itheima.mapper");
-        return mapperScannerConfigurer;
+    @Bean
+    public MapperScannerConfigurer getMapperScannerConfigurer(){
+        MapperScannerConfigurer msc = new MapperScannerConfigurer();
+        //等同于<property name="basePackage" value="com.itheima.dao"/>
+        msc.setBasePackage("com.itheima.mapper");
+        return msc;
     }
 }
-

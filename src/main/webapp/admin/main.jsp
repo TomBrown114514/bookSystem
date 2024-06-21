@@ -56,12 +56,12 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li>
+                <li >
                     <a href="main.jsp">
                         <i class="fa fa-dashboard"></i> <span>首页</span>
                     </a>
                 </li>
-                <li>
+                <li >
                     <a href="${pageContext.request.contextPath}/book/search" target="iframe">
                         <i class="fa fa-circle-o"></i>图书借阅
                     </a>
@@ -71,7 +71,7 @@
                         <i class="fa fa-circle-o"></i>当前借阅
                     </a>
                 </li>
-                <li>
+                <li >
                     <a href="${pageContext.request.contextPath}/record/searchRecords" target="iframe">
                         <i class="fa fa-circle-o"></i>借阅记录
                     </a>

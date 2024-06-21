@@ -1,14 +1,12 @@
 package com.itheima.domain;
-
 import java.io.Serializable;
-
 public class Record implements Serializable {
-    private Integer id;
-    private String bookname;
-    private String bookisbn;
-    private String borrower;
-    private String borrowTime;
-    private String remandTime;
+    private Integer id;        //图书借阅id
+    private String bookname;   //借阅的图书名称
+    private String bookisbn;   //借阅的图书的ISBN编号
+    private String borrower;   //图书借阅人
+    private String borrowTime; //图书借阅时间
+    private String remandTime; //图书归还时间
 
     public Integer getId() {
         return id;
