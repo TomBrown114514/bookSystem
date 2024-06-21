@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/_all-skins.min.css">
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script type="text/javascript">
         function SetIFrameHeight() {
             var iframeid = document.getElementById("iframe");
@@ -39,7 +40,7 @@
                         </a>
                     </li>
                     <li class="dropdown user user-menu">
-                        <a href="${pageContext.request.contextPath}/logout">
+                        <a href="${pageContext.request.contextPath}/user/logout">
                             <span class="hidden-xs">注销</span>
                         </a>
                     </li>
@@ -56,28 +57,47 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li >
+                <li id="admin-index">
                     <a href="main.jsp">
                         <i class="fa fa-dashboard"></i> <span>首页</span>
                     </a>
                 </li>
-                <li >
-                    <a href="${pageContext.request.contextPath}/book/search" target="iframe">
-                        <i class="fa fa-circle-o"></i>图书借阅
+                <!-- 人员管理 -->
+                <li id="admin-login">
+                    <a href="${pageContext.request.contextPath}/user/search" target="iframe">
+                        <i class="fa fa-circle-o"></i>人员管理
                     </a>
                 </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/book/searchBorrowed" target="iframe">
-                        <i class="fa fa-circle-o"></i>当前借阅
+                <!-- 图书管理 -->
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>图书管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
                     </a>
-                </li>
-                <li >
-                    <a href="${pageContext.request.contextPath}/record/searchRecords" target="iframe">
-                        <i class="fa fa-circle-o"></i>借阅记录
-                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/book/search" target="iframe">
+                                <i class="fa fa-circle-o"></i>图书借阅
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/book/searchBorrowed" target="iframe">
+                                <i class="fa fa-circle-o"></i>当前借阅
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/record/searchRecords" target="iframe">
+                                <i class="fa fa-circle-o"></i>借阅记录
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </section>
+
         <!-- /.sidebar -->
     </aside>
     <!-- 导航侧栏 /-->

@@ -21,7 +21,7 @@
                 <%--登录提示信息--%>
                 <span style="color: red">${msg}</span>
                 <div id="profile" class="tab-pane  active">
-                    <form id="loginform" class="sui-form" action="${pageContext.request.contextPath}/login"
+                    <form id="loginform" class="sui-form" action="${pageContext.request.contextPath}/user/login"
                           method="post">
                         <div class="input-prepend"><span class="add-on loginname">用户名</span>
                             <input type="text" placeholder="企业邮箱" class="span2 input-xfat" name="email">
