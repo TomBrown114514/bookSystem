@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-mybatis.org//DTD mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
-<mapper namespace="com.itheima.dao.RecordMapper">
+<mapper namespace="com.itheima.mapper.RecordMapper">
 <insert id="addRecord">
     insert into ssm_final.record(record_id, record_bookname, record_bookisbn, record_borrower, record_borrowtime,
                                  record_remandtime)

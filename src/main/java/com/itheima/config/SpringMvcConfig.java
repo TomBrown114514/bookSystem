@@ -15,9 +15,11 @@ import java.util.List;
  * Spring MVC的配置类，通过实现WebMvcConfigurer接口来定制Spring MVC的行为。
  */
 @Configuration
-@ComponentScan({"com.itheima.controller"})
 @PropertySource("classpath:ingoreUrl.properties")
-@MapperScan({"com.itheima.*"})
+//等同于<context:component-scan base-package="com.itheima.controller"/>
+@ComponentScan({"com.itheima.controller"})
+/*@Import({MyWebMvcConfig.class})*/
+@EnableWebMvc
 public class SpringMvcConfig implements WebMvcConfigurer {
     /**
      * 从属性文件中读取需要忽略的URL，用于配置ResourcesInterceptor。

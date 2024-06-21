@@ -2,7 +2,7 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.itheima.dao.RecordMapper;
+import com.itheima.mapper.RecordMapper;
 import com.itheima.domain.Record;
 import com.itheima.domain.User;
 import com.itheima.entity.PageResult;

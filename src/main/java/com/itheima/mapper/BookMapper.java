@@ -1,15 +1,16 @@
-package com.itheima.dao;
-
+package com.itheima.mapper;
 import com.github.pagehelper.Page;
 import com.itheima.domain.Book;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+/**
+ * 图书接口
+ */
 public interface BookMapper {
-    @Select("select * from book where book_status != '3' order by book_uploadtime desc ")
+    @Select("SELECT * FROM book where book_status !='3' order by book_uploadtime DESC")
     @Results(id = "bookMap", value = {
+            //id字段默认为false，表示不是主键
+            //column表示数据库表字段，property表示实体类属性名。
             @Result(id = true, column = "book_id", property = "id"),
             @Result(column = "book_name", property = "name"),
             @Result(column = "book_isbn", property = "isbn"),
@@ -17,19 +18,19 @@ public interface BookMapper {
             @Result(column = "book_author", property = "author"),
             @Result(column = "book_pagination", property = "pagination"),
             @Result(column = "book_price", property = "price"),
-            @Result(column = "book_uploadtime", property = "uploadtime"),
+            @Result(column = "book_uploadtime", property = "uploadTime"),
             @Result(column = "book_status", property = "status"),
             @Result(column = "book_borrower", property = "borrower"),
-            @Result(column = "book_borrowtime", property = "borrowtime"),
-            @Result(column = "book_returntime", property = "returntime")
+            @Result(column = "book_borrowtime", property = "borrowTime"),
+            @Result(column = "book_returntime", property = "returnTime")
     })
     Page<Book> selectNewBooks();
 
-    @Select("select * from book where book_id=#{id}")
-    @ResultMap("bookMap")
-    Book findById(String id);
 
-    Integer editBook(Book book);
+    @Select("SELECT * FROM book where book_id=#{id}")
+    @ResultMap("bookMap")
+//根据id查询图书信息
+    Book findById(String id);
 
     @Select({"<script>" +
             "SELECT * FROM book " +
@@ -43,9 +44,12 @@ public interface BookMapper {
     @ResultMap("bookMap")
         //分页查询图书
     Page<Book> searchBooks(Book book);
-
     //新增图书
     Integer addBook(Book book);
+
+    //编辑图书信息
+    Integer editBook(Book book);
+
 
     @Select(
             {"<script>" +
@@ -77,4 +81,5 @@ public interface BookMapper {
     @ResultMap("bookMap")
 //查询借阅但未归还的图书
     Page<Book> selectMyBorrowed(Book book);
+
 }

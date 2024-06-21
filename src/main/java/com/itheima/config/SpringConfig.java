@@ -30,7 +30,7 @@ public class SpringConfig {
      * @return 返回一个配置好的DataSourceTransactionManager实例。
      * @Autowired 自动注入DataSource，该DataSource通常由其他配置（如JdbcConfig）定义。
      */
-    @Bean
+    @Bean("transactionManager")
     public DataSourceTransactionManager getDataSourceTransactionManager(
             @Autowired DataSource dataSource
     ) {

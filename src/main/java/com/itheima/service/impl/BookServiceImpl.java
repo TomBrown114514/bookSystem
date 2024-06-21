@@ -2,7 +2,7 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.itheima.dao.BookMapper;
+import com.itheima.mapper.BookMapper;
 import com.itheima.domain.Book;
 import com.itheima.domain.Record;
 import com.itheima.domain.User;

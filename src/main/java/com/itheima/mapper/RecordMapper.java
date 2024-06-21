@@ -1,4 +1,4 @@
-package com.itheima.dao;
+package com.itheima.mapper;
 
 import com.github.pagehelper.Page;
 import com.itheima.domain.Record;
