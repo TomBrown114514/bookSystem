@@ -1,6 +1,7 @@
 package com.itheima.config;
 
 import com.itheima.interceptor.ResourcesInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,7 @@ import java.util.List;
 @Configuration
 @ComponentScan({"com.itheima.controller"})
 @PropertySource("classpath:ingoreUrl.properties")
+@MapperScan({"com.itheima.*"})
 public class SpringMvcConfig implements WebMvcConfigurer {
     /**
      * 从属性文件中读取需要忽略的URL，用于配置ResourcesInterceptor。
