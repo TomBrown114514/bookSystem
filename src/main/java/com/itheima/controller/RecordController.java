@@ -17,6 +17,7 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
+    @RequestMapping("/searchRecords")
     private ModelAndView searchRecords(Record record, HttpServletRequest request, Integer pageNum, Integer pageSize) {
         if (pageNum == null) {
             pageNum = 1;
